@@ -1,4 +1,4 @@
-import { User } from "../models/Usermodel";
+import { User } from "../models/Usermodel.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -150,14 +150,7 @@ export const updateUserProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
         const file = req.file;
-        if (!fullname || !email || !phoneNumber || !bio || !skills) {
-
-            return res.status(400).json({
-                message: "something is missing ",
-                success: false
-            });
-
-        }
+    
         // cloudinary part here ....... 
 
 
@@ -165,8 +158,11 @@ export const updateUserProfile = async (req, res) => {
 
 
         // since skills is string --> we need to convert it into an array 
-        const skillsArray = skills.split(",");
-
+        let skillsArray; 
+        if(skills){
+            skillsArray = skills.split(","); 
+        }
+        
         const userId = req.id; // middleware authentication  
 
         let user = User.findById(userId);
@@ -178,19 +174,22 @@ export const updateUserProfile = async (req, res) => {
         }
 
         // updating user data  
-        user.fullname = fullname,
-            user.email = email,
-            user.phoneNumber = phoneNumber,
-            user.profile.bio = bio,
-            user.profile.skills = skillsArray
+        // user.fullname = fullname,
+        //     user.email = email,
+        //     user.phoneNumber = phoneNumber,
+        //     user.profile.bio = bio,
+        //     user.profile.skills = skillsArray
 
+        // updating user data based on details  
+        if(fullname) user.fullname = fullname; 
+        if(email) user.email = email; 
+        if(phoneNumber) user.phoneNumber = phoneNumber; 
+        if(bio) user.profile.bio = bio; 
+        if(skills) user.profile.skills = skillsArray
         // user resume will do later .... 
 
 
-
-        // saving the user 
-        await user.save();
-
+        //returning details of the user 
         user = {
             _id: user._id,
             fullname: user.fullname,
