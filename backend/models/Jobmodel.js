@@ -12,7 +12,11 @@ const JobSchema = new mongoose.Schema({
     // this will be an array for storing skills 
     requirements: [{ 
         type: String
-    }], 
+    }],
+    experience:{ 
+        type: number, 
+        required: true
+    } , 
     salary: { 
         type: String, 
         required: true
