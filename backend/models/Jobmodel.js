@@ -9,12 +9,12 @@ const JobSchema = new mongoose.Schema({
         type: String, 
         required: true
     },  
-    // this will be an array for storing skills 
+    // array for storing skills 
     requirements: [{ 
         type: String
     }],
     experience:{ 
-        type: number, 
+        type: Number, 
         required: true
     } , 
     salary: { 
@@ -38,7 +38,7 @@ const JobSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref:'Company', 
         required: true
-    } ,
+    } , 
     created_by: { 
         
         type: String, 

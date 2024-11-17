@@ -5,9 +5,9 @@ import { Job } from '../models/Jobmodel.js';
 // recruiter / admin
 export const PostJob = async (req,res)=>{ 
     try {
-        const{title, description, requirements,salary, location, jobtype, experience, position, companyId} = req.body;  
+        const{title, description, requirements,salary, location, jobType, experience, position, companyId} = req.body;  
         const userId = req.id; 
-        if(!title|| !description|| !requirements || !salary || !location || !jobtype|| !experience ||  !experiencexperience || !position || !companyId) { 
+        if(!title|| !description|| !requirements || !salary || !location || !jobType|| !experience || !position || !companyId) { 
             return res.status(400).json({ 
                 message:"something is missing ", 
 
@@ -17,11 +17,12 @@ export const PostJob = async (req,res)=>{
         const job = await Job.create({ 
             title, 
             description,
-            requirements: requirements.split(','), 
-            salary: Number(salary), 
+            requirements, 
+            salary, 
             location, 
-            jobtype,  
+            jobType,  
             experience, 
+            position, 
             company: companyId, 
             created_by: userId
 
@@ -50,6 +51,8 @@ export const getAllJobs = async (req,res) =>{
 
             ]
         }; 
+
+        // will use populated later 
 
         const jobs = await Job.find(query); 
         if(!jobs) {
