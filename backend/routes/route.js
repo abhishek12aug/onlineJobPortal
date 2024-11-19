@@ -11,4 +11,3 @@ router.use('/job', jobRouter);
 router.use('/application',applicationRouter);
 
 export default router; 
- 
