@@ -7,7 +7,12 @@ import { Avatar, AvatarImage } from '../ui/avatar'
 
 
 
-function Navbar() {
+function Navbar() { 
+    
+    const user = false ; 
+    
+
+    
     return (
         <div className=' bg-white'>
 
@@ -21,25 +26,51 @@ function Navbar() {
                     <li><Link>Companies</Link></li>
                     <li><Link>Contact</Link></li>
 
-                </ul>
-                <Popover>
-                  
-                        <PopoverTrigger asChild>
-                            <Avatar>
-                                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                               
-                            </Avatar>
-                        </PopoverTrigger>
-                        <PopoverContent className='w-80'>
-                            
+
+
+                </ul> 
+                
+                { 
+                    !user ? ( 
+                        <div className='flex items-center gap-2'> 
+                            <Button variant='outline'>Login</Button>
+                            <Button>Sign Up</Button>
+
+                        </div>
+                    ) : (
+
+                    <Popover>
+
+                    <PopoverTrigger asChild>
+                        <Avatar className='cursor-pointer'>
+                            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+
+                        </Avatar>
+                    </PopoverTrigger>
+                    <PopoverContent className='w-80'>
+                        <div className=''>
+                            <h4 className='font-medium'>Abhishek</h4>
+
+
+                            <div className='flex  gap-3'>
+                                <Button variant='link'>View Profile</Button>
+                                <Button variant='link'>Logout</Button>
+                              
+                            </div>
+                        </div>
                     </PopoverContent>
                 </Popover>
+                    )
+                }
 
+                
+                
             </div>
 
 
         </div>
-    )
+    ) 
+
 
 
 
